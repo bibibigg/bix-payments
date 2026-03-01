@@ -14,23 +14,30 @@ export default function PostList() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const page = Math.max(0, Number(searchParams.get("page") || "1") - 1);
-  const category = (searchParams.get("category") as BoardCategory | null) ?? undefined;
+  const category =
+    (searchParams.get("category") as BoardCategory | null) ?? undefined;
 
   const { data, isLoading, error } = useBoardsQuery(page, category);
   const { data: categoryMap } = useCategoriesQuery();
 
-  const handlePageChange = useCallback((newPage: number) => {
-    const catParam = category ? `category=${category}` : "";
-    if (newPage === 0) {
-      router.push(catParam ? `/?${catParam}` : "/");
-    } else {
-      router.push(`/?page=${newPage + 1}${catParam ? `&${catParam}` : ""}`);
-    }
-  }, [category, router]);
+  const handlePageChange = useCallback(
+    (newPage: number) => {
+      const catParam = category ? `category=${category}` : "";
+      if (newPage === 0) {
+        router.push(catParam ? `/?${catParam}` : "/");
+      } else {
+        router.push(`/?page=${newPage + 1}${catParam ? `&${catParam}` : ""}`);
+      }
+    },
+    [category, router],
+  );
 
-  const handleCategoryChange = useCallback((newCategory?: BoardCategory) => {
-    router.push(newCategory ? `/?category=${newCategory}` : "/");
-  }, [router]);
+  const handleCategoryChange = useCallback(
+    (newCategory?: BoardCategory) => {
+      router.push(newCategory ? `/?category=${newCategory}` : "/");
+    },
+    [router],
+  );
 
   return (
     <>
@@ -47,19 +54,21 @@ export default function PostList() {
             >
               전체
             </button>
-            {(Object.entries(categoryMap) as [BoardCategory, string][]).map(([cat, label]) => (
-              <button
-                key={cat}
-                onClick={() => handleCategoryChange(cat)}
-                className={`px-4 py-1.5 rounded-full text-sm font-medium whitespace-nowrap border transition-colors ${
-                  category === cat
-                    ? `${CATEGORY_COLOR[cat] ?? "bg-gray-100 text-gray-600"} border-transparent shadow-sm`
-                    : "bg-white border-gray-200 text-gray-500 hover:border-gray-300 hover:text-gray-700"
-                }`}
-              >
-                {label}
-              </button>
-            ))}
+            {(Object.entries(categoryMap) as [BoardCategory, string][]).map(
+              ([cat, label]) => (
+                <button
+                  key={cat}
+                  onClick={() => handleCategoryChange(cat)}
+                  className={`px-4 py-1.5 rounded-full text-sm font-medium whitespace-nowrap border transition-colors ${
+                    category === cat
+                      ? `${CATEGORY_COLOR[cat] ?? "bg-gray-100 text-gray-600"} border-transparent shadow-sm`
+                      : "bg-white border-gray-200 text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                  }`}
+                >
+                  {label}
+                </button>
+              ),
+            )}
           </>
         ) : (
           Array.from({ length: 5 }).map((_, i) => (
@@ -109,7 +118,9 @@ export default function PostList() {
             />
           </svg>
           <p className="text-sm font-medium text-gray-500">게시글이 없습니다</p>
-          <p className="text-xs mt-1 text-gray-400">첫 번째 글을 작성해보세요.</p>
+          <p className="text-xs mt-1 text-gray-400">
+            첫 번째 글을 작성해보세요.
+          </p>
         </div>
       ) : (
         <>
@@ -122,8 +133,8 @@ export default function PostList() {
           </p>
 
           <div className="overflow-hidden rounded-xl border border-gray-200 bg-white">
-            <div className="hidden sm:grid sm:grid-cols-[64px_112px_1fr_96px] gap-4 px-5 py-3 bg-gray-50 border-b border-gray-200 text-xs font-semibold text-gray-400 uppercase tracking-wider select-none">
-              <span>번호</span>
+            <div className="flex justify-between sm:grid sm:grid-cols-[64px_112px_1fr_96px] gap-4 px-5 py-3 bg-gray-50 border-b border-gray-200 text-xs font-semibold text-gray-400 uppercase tracking-wider select-none">
+              <span className="hidden sm:block">번호</span>
               <span>카테고리</span>
               <span>제목</span>
               <span className="text-right">작성일</span>
@@ -134,26 +145,22 @@ export default function PostList() {
                 <li key={post.id}>
                   <Link
                     href={`/posts/${post.id}`}
-                    className={[
-                      "grid grid-cols-[1fr_80px] gap-x-3 gap-y-1",
-                      "sm:grid-cols-[64px_112px_1fr_96px] sm:gap-4 sm:gap-y-0",
-                      "px-5 py-4 items-center",
-                      "hover:bg-blue-50/40 transition-colors group",
-                    ].join(" ")}
+                    className="grid grid-cols-[auto_1fr_auto] sm:grid-cols-[64px_112px_1fr_96px] gap-x-3 sm:gap-4 px-5 py-4 items-center hover:bg-blue-50/40 transition-colors group"
                   >
                     <span className="hidden sm:block text-sm text-gray-400 tabular-nums">
                       {post.id}
                     </span>
 
                     <span
-                      className={`inline-flex items-center self-start sm:self-auto px-2.5 py-0.5 rounded-full text-xs font-semibold w-fit ${
-                        CATEGORY_COLOR[post.category] ?? "bg-gray-100 text-gray-600"
+                      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold w-fit ${
+                        CATEGORY_COLOR[post.category] ??
+                        "bg-gray-100 text-gray-600"
                       }`}
                     >
                       {categoryMap?.[post.category] ?? post.category}
                     </span>
 
-                    <span className="text-sm font-medium text-gray-900 leading-snug truncate group-hover:text-blue-700 transition-colors">
+                    <span className="text-sm font-medium text-gray-900 leading-snug truncate min-w-0 group-hover:text-blue-700 transition-colors">
                       {post.title}
                     </span>
 
