@@ -2,6 +2,8 @@
 
 Next.js App Router 기반의 게시판 서비스입니다.
 
+**배포 URL**: https://bix-payments.vercel.app/
+
 ## 기술 스택
 
 - **Framework**: Next.js (App Router)
