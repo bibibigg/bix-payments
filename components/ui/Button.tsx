@@ -3,7 +3,7 @@
 import { ButtonHTMLAttributes } from 'react';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'danger';
   isLoading?: boolean;
 }
 
@@ -15,10 +15,11 @@ export default function Button({
   className = '',
   ...props
 }: ButtonProps) {
-  const base = 'w-full py-2.5 px-4 rounded-lg font-medium transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed';
+  const base = 'py-2.5 px-4 rounded-xl font-medium transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed';
   const variants = {
     primary: 'bg-blue-600 text-white hover:bg-blue-700',
     secondary: 'bg-gray-200 text-gray-800 hover:bg-gray-300',
+    danger: 'bg-red-50 text-red-600 border border-red-200 hover:bg-red-100',
   };
 
   return (

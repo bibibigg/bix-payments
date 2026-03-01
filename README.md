@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# BIX Payments 게시판
 
-## Getting Started
+Next.js App Router 기반의 게시판 서비스입니다.
 
-First, run the development server:
+## 기술 스택
+
+- **Framework**: Next.js (App Router)
+- **Language**: TypeScript
+- **State Management**: Zustand
+- **Server State**: TanStack Query
+- **Styling**: Tailwind CSS v4
+
+## 주요 기능
+
+- 회원가입 / 로그인 / 로그아웃
+- 로그인한 사용자 정보 표시 (이름, 이메일)
+- 게시글 목록 조회 (페이지네이션, 카테고리 필터)
+- 게시글 등록 / 상세 조회 / 수정 / 삭제
+- 이미지 첨부 및 라이트박스 뷰어
+- 미인증 사용자 라우트 보호
+
+## 시작하기
+
+### 1. 패키지 설치
+
+```bash
+npm install
+```
+
+### 2. 환경 변수 설정
+
+`.env.example`을 복사하여 `.env.local`을 생성합니다.
+
+```bash
+cp .env.example .env.local
+```
+
+### 3. 개발 서버 실행
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+브라우저에서 [http://localhost:3000](http://localhost:3000)을 열어 확인합니다.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 빌드
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run build
+npm run start
+```

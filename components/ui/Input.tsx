@@ -10,15 +10,20 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 export default function Input({
   label,
   error,
+  id,
+  name,
   className = '',
   ...props
 }: InputProps) {
+  const inputId = id ?? name;
   return (
     <div className="flex flex-col gap-1.5">
-      <label className="text-sm font-medium text-gray-700">
+      <label htmlFor={inputId} className="text-sm font-medium text-gray-700">
         {label}
       </label>
       <input
+        id={inputId}
+        name={name}
         className={`w-full px-3 py-2 border rounded-lg outline-none transition-colors ${
           error
             ? 'border-red-500 focus:border-red-500'

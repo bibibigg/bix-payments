@@ -104,7 +104,7 @@ export default function RegisterForm() {
         required
       />
 
-      <Button type="submit" isLoading={isLoading}>
+      <Button type="submit" isLoading={isLoading} className="w-full">
         회원가입
       </Button>
 

@@ -7,6 +7,7 @@ import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import { login } from "@/lib/api/auth";
 import { decodeJwt } from "@/lib/utils/jwt";
+import { validateEmail } from "@/lib/utils/validation";
 import { useAuthStore } from "@/store/authStore";
 
 export default function LoginForm() {
@@ -22,6 +23,12 @@ export default function LoginForm() {
 
     if (!form.username || !form.password) {
       setError("이메일과 비밀번호를 입력해주세요");
+      return;
+    }
+
+    const emailError = validateEmail(form.username);
+    if (emailError) {
+      setError(emailError);
       return;
     }
 
@@ -66,7 +73,7 @@ export default function LoginForm() {
         required
       />
 
-      <Button type="submit" isLoading={isLoading}>
+      <Button type="submit" isLoading={isLoading} className="w-full">
         로그인
       </Button>
 
