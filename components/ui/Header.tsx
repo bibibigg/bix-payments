@@ -13,7 +13,11 @@ export default function Header() {
   const router = useRouter();
   const user = useAuthStore((state) => state.user);
   const clearAuth = useAuthStore((state) => state.clearAuth);
-  const mounted = useSyncExternalStore(subscribe, () => true, () => false);
+  const mounted = useSyncExternalStore(
+    subscribe,
+    () => true,
+    () => false,
+  );
 
   const handleLogout = () => {
     clearAuth();
@@ -31,7 +35,7 @@ export default function Header() {
           <div className="h-4 w-32 rounded bg-gray-100 animate-pulse" />
         ) : user ? (
           <div className="flex items-center gap-3 text-sm min-w-0">
-            <span className="text-gray-700 font-medium truncate hidden sm:block">
+            <span className="text-gray-700 font-medium truncate">
               {user.name}
               <span className="text-gray-400 font-normal ml-1 text-xs">
                 ({user.username})
@@ -39,7 +43,7 @@ export default function Header() {
             </span>
 
             <span
-              className="w-px h-4 bg-gray-200 shrink-0 hidden sm:block"
+              className="w-px h-4 bg-gray-200 shrink-0"
               aria-hidden="true"
             />
 
